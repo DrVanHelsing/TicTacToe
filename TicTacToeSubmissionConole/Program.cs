@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicTacToeSubmissionConole
+namespace TicTacToeSubmissionConsole
 {
     class Program
     {
@@ -16,11 +16,9 @@ namespace TicTacToeSubmissionConole
 
             ticTacToe.Run();
 
-
             Console.ForegroundColor = oldColor ;
 
-
-            Console.SetCursorPosition(20, 27);
+            Console.SetCursorPosition(20, 28);
             Console.WriteLine("Thank you for playing");
             Console.ReadLine();
         }

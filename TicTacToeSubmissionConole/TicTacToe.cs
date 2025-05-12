@@ -5,7 +5,7 @@ using System.Text;
 using TicTacToeRendererLib.Enums;
 using TicTacToeRendererLib.Renderer;
 
-namespace TicTacToeSubmissionConole
+namespace TicTacToeSubmissionConsole
 {
     public class TicTacToe
     {
@@ -29,6 +29,7 @@ namespace TicTacToeSubmissionConole
         };
 
         private bool is_win = false;
+        private int num_moves = 1;
 
         public TicTacToe()
         {
@@ -73,7 +74,7 @@ namespace TicTacToeSubmissionConole
         private bool win_check(List<(int, int)> player_moves)
         {
             var moves = new bool[9];
-
+            
             foreach (var (row, column) in player_moves)
             {
                 moves[row * 3 + column] = true;
@@ -89,32 +90,49 @@ namespace TicTacToeSubmissionConole
             return false;
         }
 
+        public void tie()
+        {
+            Console.SetCursorPosition(20, 26);
+            Console.WriteLine("Maximum number of moves played, game is a Tie!");
+        }
+
         public void Run()
         {
             // FOR ILLUSTRATION CHANGE TO YOUR OWN LOGIC TO DO TIC TAC TOE
             while (!is_win)
             {
-                play_move(PlayerEnum.X, player_1_moves);
-                if (win_check(player_1_moves))
-                {
-                    Console.SetCursorPosition(20, 26);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Player 1 WINS!!!");
-                    is_win = true;
-                    break;
-                }
+                    play_move(PlayerEnum.X, player_1_moves);
+                    num_moves++;
+                    if (win_check(player_1_moves))
+                    {
+                        Console.SetCursorPosition(20, 26);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Player 1 WINS!!!");
+                        is_win = true;
+                        break;
+                    }
+                    else if (num_moves > 9)
+                    {
+                        tie();
+                        break;
+                    }
 
-                play_move(PlayerEnum.O, player_2_moves);
-                if (win_check(player_2_moves))
-                {
-                    Console.SetCursorPosition(20, 26);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Player 2 WINS!!!");
-                    is_win = true;
-                    break;
-                }
+                    play_move(PlayerEnum.O, player_2_moves);
+                    num_moves++;
+                    if (win_check(player_2_moves))
+                    {
+                        Console.SetCursorPosition(20, 26);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Player 2 WINS!!!");
+                        is_win = true;
+                        break;
+                    }
+                    else if (num_moves > 9)
+                    {
+                        tie();
+                        break;
+                    }
             }
         }
-
     }
 }
